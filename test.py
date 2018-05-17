@@ -15,17 +15,15 @@ class ScreenShot(QMainWindow):
         #Window settings
         self.x = 400
         self.y = 30
-        self.width = 600
-        self.height = 200
+        self.setFixedSize(600, 200)
+        self.move(self.x, self.y)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.setWindowFlags(Qt.SplashScreen | Qt.WindowStaysOnTopHint)
 
-    def initUI(self):
-        self.setGeometry(self.x, self.y, self.width, self.height)
         #Screenshot windows settings
         self.main_screenshot = QLabel(self)
-        self.main_screenshot.resize(self.x, self.y)
+        self.main_screenshot.resize(600, 200)
         self.main_screenshot.setStyleSheet(self.background_style_css)
 
         #Text label settings
@@ -35,37 +33,12 @@ class ScreenShot(QMainWindow):
         self.text_label.setText("This is a test")
 
         self.show()
+    # self.connect(self.le, SIGNAL("tabPressed"),
+    #                  self.update)
 
-    def keyPressEvent(self, event):
-        key = event.key()
-        key_map = {Qt.Key_Left: self.move_window(movement = -1, h = True),
-                   Qt.Key_Right: self.move_window(movement = 1, h = True),
-                   Qt.Key_Down: self.move_window(movement = 1, h = False),
-                   Qt.Key_Up: self.move_window(movement = -1, h = False)}
-        if key in key_map:
-            key_map[key]
-
-    def move_window(movement, h):
-        if h: #Horizontal movement
-            self.x += movement
-            self.initUI()
-        else:
-            self.y += movement
-            self.initUI()
-
-        # key_map = {Qt.Key_Enter:  self.start,  Qt.Key_Return: self.start,
-        #            Qt.Key_Escape: self.close,  Qt.Key_P:      self.pause,
-        #            Qt.Key_R:      self.reset}
-        # key = event.key()
-        #
-        # # Snake head movement
-        # if key in {Qt.Key_Left, Qt.Key_Right,
-        #            Qt.Key_Up,   Qt.Key_Down}:
-        #     self.key = key
-        #
-        # # Start, pause, reset or exit game
-        # elif key in key_map:
-        #     key_map[key]()
+    def move_window_right(self):
+        self.x += 1
+        self.show()
 
     def terminal_ask(self):
         while True:

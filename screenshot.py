@@ -9,8 +9,8 @@ class ScreenShot(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
         #Styles
-        self.background_style_css = "background-color: rgba(22, 160, 133, 50); border-radius: 1px;"
-        self.background_style_css_screenshot = "background-color: rgba(22, 160, 133, 50); border-radius: px;"
+        self.background_style_css = "background-color: rgba(22, 160, 133, 100); border-radius: 1px;"
+        self.background_style_css_screenshot = "background-color: rgba(22, 160, 133, 50); border-radius: 2px;"
 
         #Window settings
         self.x = 400
@@ -20,9 +20,12 @@ class ScreenShot(QMainWindow):
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.setWindowFlags(Qt.SplashScreen | Qt.WindowStaysOnTopHint)
+        self.initUI()
 
     def initUI(self):
-        self.setGeometry(self.x, self.y, self.width, self.height)
+        #Window settings
+        self.move(self.x, self.y)
+        self.setFixedSize(self.width, self.height)
         #Screenshot windows settings
         self.main_screenshot = QLabel(self)
         self.main_screenshot.resize(self.x, self.y)
@@ -36,21 +39,36 @@ class ScreenShot(QMainWindow):
         self.show()
 
     def keyPressEvent(self, event):
-        key = event.key()
-        key_map = {Qt.Key_Left: self.move_window(movement = -1, h = True),
-                   Qt.Key_Right: self.move_window(movement = 1, h = True),
-                   Qt.Key_Down: self.move_window(movement = 1, h = False),
-                   Qt.Key_Up: self.move_window(movement = -1, h = False)}
-        if key in key_map:
-            key_map[key]
+        if event.key() == Qt.Key_Left:
+            print("Left")
+            self.move_window()
+        if event.key() == Qt.Key_R:
+            print('R')
+        # elif event.key() == Qt.Key_Right:
+        #     self.proceed_right()
+        event.accept()
 
-    def move_window(movement, h):
-        if h: #Horizontal movement
-            self.x += movement
-            self.initUI()
-        else:
-            self.y += movement
-            self.initUI()
+    # def keyPressEvent(self, event):
+    #     key = event.key()
+    #     key_map = {Qt.Key_Left: self.move_window(movement = -1, h = True),
+    #                Qt.Key_Right: self.move_window(movement = 1, h = True),
+    #                Qt.Key_Down: self.move_window(movement = 1, h = False),
+    #                Qt.Key_Up: self.move_window(movement = -1, h = False)}
+    #     if key in key_map:
+    #         key_map[key]
+    #     print('Key detected')
+    #     event.accept()
+
+    def move_window():
+        # if h: #Horizontal movement
+        #     self.width += movement
+        #     self.initUI()
+        # else:
+        #     self.height += movement
+        #     self.initUI()
+        self.width += 1
+        self.initUI()
+        print('Key Press Event detected')
 
         # key_map = {Qt.Key_Enter:  self.start,  Qt.Key_Return: self.start,
         #            Qt.Key_Escape: self.close,  Qt.Key_P:      self.pause,
@@ -84,6 +102,6 @@ class ScreenShot(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     MainWindow = ScreenShot()
-    # MainWindow.show()
+    MainWindow.show()
     MainWindow.terminal_ask()
     sys.exit(app.exec_())
