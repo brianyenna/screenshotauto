@@ -15,7 +15,7 @@ class ScreenShot(QMainWindow):
         self.top = 100
         self.width = 600
         self.height = 200
-        #self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.SplashScreen | Qt.WindowStaysOnTopHint)
         self.initUI()
 
@@ -35,15 +35,19 @@ class ScreenShot(QMainWindow):
         self.text_label.setText("This is a test")
         self.show()
 
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Left:
-            print("Left")
-            self.move_window()
-        if event.key() == Qt.Key_R:
-            print('R')
-        # elif event.key() == Qt.Key_Right:
-        #     self.proceed_right()
-        event.accept()
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_Escape:
+            self.close_window()
+    #
+    # def keyPressEvent(self, event):
+    #     if event.key() == Qt.Key_Left:
+    #         print("Left")
+    #         self.move_window()
+    #     if event.key() == Qt.Key_R:
+    #         print('R')
+    #     # elif event.key() == Qt.Key_Right:
+    #     #     self.proceed_right()
+    #     event.accept()
 
     # def keyPressEvent(self, event):
     #     key = event.key()
@@ -76,6 +80,10 @@ class ScreenShot(QMainWindow):
             else:
                 print("Invalid Syntax, Try it again.")
             QApplication.processEvents()
+
+    def close_window(self):
+        self.close()
+        sys.exit()
 
 
 if __name__ == '__main__':
