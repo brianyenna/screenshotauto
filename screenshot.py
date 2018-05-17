@@ -12,22 +12,21 @@ class ScreenShot(QMainWindow):
         self.background_style_css_screenshot = "background-color: rgba(22, 160, 133, 50); border-radius: 2px;"
 
         #Window settings
-        self.x = 400
-        self.y = 30
+        self.left = 50
+        self.top = 100
         self.width = 600
         self.height = 200
-        self.setWindowFlags(Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setWindowFlags(Qt.SplashScreen | Qt.WindowStaysOnTopHint)
+        #self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.SplashScreen | Qt.WindowStaysOnTopHint)
         self.initUI()
 
     def initUI(self):
         #Window settings
-        self.move(self.x, self.y)
+        self.setGeometry(self.left, self.top, self.width, self.height)
         self.setFixedSize(self.width, self.height)
         #Screenshot windows settings
         self.main_screenshot = QLabel(self)
-        self.main_screenshot.resize(self.x, self.y)
+        self.main_screenshot.resize(self.left, self.top)
         self.main_screenshot.setStyleSheet(self.background_style_css)
 
         #Text label settings
@@ -78,10 +77,6 @@ class ScreenShot(QMainWindow):
             else:
                 print("Invalid Syntax, Try it again.")
             QApplication.processEvents()
-
-    def close_window(self):
-        self.close()
-        sys.exit()
 
 
 if __name__ == '__main__':
