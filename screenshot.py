@@ -23,7 +23,6 @@ class ScreenShot(QWidget):
         p = self.palette()
         p.setColor(self.backgroundRole(), self.color)
         self.setPalette(p)
-        self.setFixedSize(self.width, self.height)
         self.show()
 
     def keyPressEvent(self, event):
