@@ -25,6 +25,9 @@ class ScreenShot(QMainWindow):
         self.setPalette(p)
         self.setFixedSize(self.width, self.height)
 
+    def refreshWindow(self, left, top, width, height):
+        self.setGeometry()
+
     def keyPressEvent(self, event):
         key = event.key()
         if key == Qt.Key_Left:
