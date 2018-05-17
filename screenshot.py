@@ -52,7 +52,6 @@ class ScreenShot(QMainWindow):
             self.width = 10
         if self.height <= 0:
             self.height = 10
-
         self.refreshWindowGeometry()
 
 if __name__ == '__main__':
