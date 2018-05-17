@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
 from PyQt5.QtGui import QPainter, QColor, QPen, QIcon
 from PyQt5.QtCore import Qt, QPoint
 
-
 class ScreenShot(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
