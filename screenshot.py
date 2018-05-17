@@ -70,20 +70,6 @@ class ScreenShot(QMainWindow):
         self.initUI()
         print('Key Press Event detected')
 
-        # key_map = {Qt.Key_Enter:  self.start,  Qt.Key_Return: self.start,
-        #            Qt.Key_Escape: self.close,  Qt.Key_P:      self.pause,
-        #            Qt.Key_R:      self.reset}
-        # key = event.key()
-        #
-        # # Snake head movement
-        # if key in {Qt.Key_Left, Qt.Key_Right,
-        #            Qt.Key_Up,   Qt.Key_Down}:
-        #     self.key = key
-        #
-        # # Start, pause, reset or exit game
-        # elif key in key_map:
-        #     key_map[key]()
-
     def terminal_ask(self):
         while True:
             print("If you want to close this window, type stop: ")
