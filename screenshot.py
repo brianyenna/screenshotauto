@@ -27,12 +27,14 @@ class ScreenShot(QMainWindow):
 
     def keyPressEvent(self, event):
         key = event.key()
+        print(key)
         if key == Qt.Key_Left:
             print("Left")
             self.move_window()
         if key == Qt.Key_Right:
             print('Right')
             self.move_window()
+
         event.accept()
 
     def move_window(self):
@@ -40,8 +42,23 @@ class ScreenShot(QMainWindow):
         self.initUI()
         print('Key Press Event detected')
 
+    def terminal_ask(self):
+        while True:
+            print("If you want to close this window, type stop: ")
+            get_input = input()
+            if get_input.lstrip().rstrip().lower() == "stop":
+                self.close_window()
+            else:
+                print("Invalid Syntax, Try it again.")
+            QApplication.processEvents()
+
+    def close_window(self):
+        self.close()
+        sys.exit()
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     MainWindow = ScreenShot()
     MainWindow.show()
+    MainWindow.terminal_ask()
     sys.exit(app.exec_())
