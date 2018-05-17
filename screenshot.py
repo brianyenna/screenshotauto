@@ -6,34 +6,24 @@ from PyQt5.QtCore import Qt, QPoint
 class ScreenShot(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
-        #Styles
-        self.background_style_css = "background-color: rgba(22, 160, 133, 100); border-radius: 1px;"
-        self.background_style_css_screenshot = "background-color: rgba(22, 160, 133, 50); border-radius: 2px;"
-
         #Window settings
         self.left = 50
         self.top = 100
         self.width = 600
         self.height = 200
-        self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setWindowFlags(Qt.FramelessWindowHint | Qt.SplashScreen | Qt.WindowStaysOnTopHint)
+        self.opacity = 0.5
+        self.color = Qt.green
         self.initUI()
 
     def initUI(self):
-        #Window settings
         self.setGeometry(self.left, self.top, self.width, self.height)
+        self.setWindowOpacity(self.opacity)
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.SplashScreen | Qt.WindowStaysOnTopHint)
+        self.setAutoFillBackground(True)
+        p = self.palette()
+        p.setColor(self.backgroundRole(), self.color)
+        self.setPalette(p)
         self.setFixedSize(self.width, self.height)
-        #Screenshot windows settings
-        self.main_screenshot = QLabel(self)
-        self.main_screenshot.resize(self.left, self.top)
-        self.main_screenshot.setStyleSheet(self.background_style_css)
-
-        #Text label settings
-        self.text_label = QLabel(self)
-        self.text_label.move(10, 5)
-        self.text_label.resize(300, 100)
-        self.text_label.setText("This is a test")
-        self.show()
 
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_Escape:
