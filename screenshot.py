@@ -1,8 +1,7 @@
 import sys
-from PyQt5.QtGui import *
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+from PyQt5.QtGui import QPainter, QColor, QPen, QIcon
+from PyQt5.QtCore import Qt, QPoint
 
 
 class ScreenShot(QMainWindow):
@@ -17,8 +16,8 @@ class ScreenShot(QMainWindow):
         self.y = 30
         self.width = 600
         self.height = 200
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.setWindowFlags(Qt.SplashScreen | Qt.WindowStaysOnTopHint)
         self.initUI()
 
