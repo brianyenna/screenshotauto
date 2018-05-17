@@ -13,7 +13,6 @@ class ScreenShot(QMainWindow):
         self.height = 200
         self.opacity = 0.5
         self.color = Qt.green
-
         self.initUI()
 
     def initUI(self):

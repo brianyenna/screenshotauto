@@ -1,0 +1,9 @@
+name: screenshot
+channels:
+- defaults
+dependencies:
+- pip=9.0.1=py35_1
+- pip:
+  - PyQt5==5.10.1
+  - setuptools==28.8.0
+  - sip==4.19.8
