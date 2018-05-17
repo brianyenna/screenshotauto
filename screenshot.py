@@ -1,23 +1,27 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QWidget, QLCDNumber, QSlider, QGridLayout
-from PyQt5.QtGui import QPainter, QColor, QPen, QIcon
+from PyQt5.QtGui import QPainter, QColor, QPen, QIcon, QScreen
 from PyQt5.QtCore import Qt, QPoint
 
 class ScreenShot(QWidget):
     def __init__(self):
         super().__init__()
         #Window settings
-        self.big_steps = False
+        self.big_steps = False #If True, the step_size will be larger (i.e 10)
+        self.step_size = 1 #number of pixels to move the window by
+        geometry = app.desktop().availableGeometry() ##
         self.left = 50
         self.top = 100
-        self.width = 600
-        self.height = 200
+        # self.width = 600
+        self.width = geometry.width()
+        self.height = geometry.height()
+
+        # self.height = 200
         self.opacity = 0.5
         self.color = QColor(255,3,3)  #Set RGB colours later
         self.initUI()
 
     def initUI(self):
-        self.create_mouse_position_label()
         self.refreshWindowGeometry()
         self.setWindowOpacity(self.opacity)
         self.setAutoFillBackground(True)
@@ -25,18 +29,6 @@ class ScreenShot(QWidget):
         p.setColor(self.backgroundRole(), self.color)
         self.setPalette(p)
         self.show()
-
-    def create_mouse_position_label(self):
-        self.mouse_x = 0
-        self.mouse_y = 0
-        self.mouse_text = 'X: {}, Y: {}'.format(self.mouse_x, self.mouse_y)
-        self.mouse_background_style_css = "background-color: rgba(22, 160, 133, 50); border-radius: px;"
-
-        self.mouse_tracker = QLabel(self)
-        self.mouse_tracker.resize(200,200)
-        self.mouse_tracker.setStyleSheet(self.mouse_background_style_css)
-        self.mouse_tracker.setText(self.mouse_text)
-        self.mouse_tracker.move(10,10)
 
     def refreshWindowGeometry(self):
         self.setGeometry(self.left, self.top, self.width, self.height)
@@ -49,15 +41,44 @@ class ScreenShot(QWidget):
 
     def keyPressEvent(self, event):
         key = event.key()
-        print(key)
+        if key == Qt.Key_B:
+            self.big_steps = not self.big_steps #inverts the Boolean value
+
+        if self.big_steps:
+            self.step_size = 15
+        else:
+            self.step_size = 1
+
+        #Resize window height and width
         if key == Qt.Key_Left:
-            self.resize_window(-10, 0)
+            self.resize_window(-self.step_size, 0)
         if key == Qt.Key_Right:
-            self.resize_window(10, 0)
+            self.resize_window(self.step_size, 0)
         if key == Qt.Key_Up:
-            self.resize_window(0, -10)
+            self.resize_window(0, -self.step_size)
         if key == Qt.Key_Down:
-            self.resize_window(0, 10)
+            self.resize_window(0, self.step_size)
+
+        #Resize window reference point (self.top and self.left)
+        if key == Qt.Key_A:
+            self.change_window_reference(-self.step_size, 0)
+        if key == Qt.Key_D:
+            self.change_window_reference(self.step_size, 0)
+        if key == Qt.Key_W:
+            self.change_window_reference(0, -self.step_size)
+        if key == Qt.Key_S:
+            self.change_window_reference(0, self.step_size)
+
+        if key == Qt.Key_C:
+            # pixmap = QScreen.grabWindow(self.winId())
+            # p = self.grab()
+            # p.save('test','jpg')
+            self.preview_screen = QApplication.primaryScreen().grabWindow(0,0,300,300)
+            # # self.img_preview.setPixmap(self.preview_screen.scaled(350,350, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            self.preview_screen.save('test','jpg')
+            # pixmap = QScreen.grabWindow(QApplication.?
+            # pixmap.save('test','jpg')
+
 
     def resize_window(self, width, height):
         self.width += width
@@ -67,6 +88,16 @@ class ScreenShot(QWidget):
         if self.height <= 0:
             self.height = 10
         self.refreshWindowGeometry()
+
+    def change_window_reference(self, inc_x, inc_y):
+        self.left += inc_x
+        self.top += inc_y
+        if self.left <= 0:
+            self.left = 0
+        if self.top <= 0:
+            self.top = 0
+        self.refreshWindowGeometry()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
