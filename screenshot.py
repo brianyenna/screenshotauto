@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog, QStatusBar, QWidget
-from PyQt5.QtGui import QColor, QPixmap
+from PyQt5.QtGui import QColor, QPixmap, QScreen
 from PyQt5.QtCore import Qt, QPoint, QDir
 from imagePreviewer import ImagePreviewer
 
@@ -42,6 +42,8 @@ class ScreenShot(QMainWindow):
         self.imagePreviewer.setWindowTitle("Screenshot preview")
         self.imagePreviewer.hide()
         self.show()
+
+        self.maximized = False
 
     def refreshWindowGeometry(self):
         self.setGeometry(self.left, self.top, self.width, self.height)
@@ -92,6 +94,8 @@ class ScreenShot(QMainWindow):
             self.clear_screenshot()
         if key == Qt.Key_Q:
             self.close()
+        if key == Qt.Key_F:
+            self.maximize_window()
 
     def mousePressEvent(self, event):
         self.prevPos = event.globalPos()
@@ -100,6 +104,23 @@ class ScreenShot(QMainWindow):
         diff = event.globalPos() - self.prevPos
         self.move_window(diff.x(), diff.y())
         self.prevPos = event.globalPos()
+
+    def maximize_window(self):
+        if self.maximized:
+            self.top = self.oldGeometry[0]
+            self.left = self.oldGeometry[1]
+            self.width = self.oldGeometry[2]
+            self.height = self.oldGeometry[3]
+            self.showNormal()
+            self.maximized = False
+        else:
+            self.oldGeometry = [self.top, self.left, self.width, self.height]
+            self.top = 0
+            self.left = 0
+            self.showMaximized()
+            self.maximized = True
+        
+        self.refreshWindowGeometry()
 
     def resize_window(self, width, height):
         self.width += width
