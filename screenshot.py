@@ -85,6 +85,15 @@ class ScreenShot(QMainWindow):
             self.preview_screen = QApplication.primaryScreen().grabWindow(0,0,300,300)
             self.preview_screen.save('test','jpg')
 
+    def mousePressEvent(self, event):
+        self.prevPos = event.globalPos()
+
+    def mouseMoveEvent(self, event):        
+        modifier = QApplication.keyboardModifiers()
+        if modifier == Qt.AltModifier:
+            diff = event.globalPos() - self.prevPos
+            self.move(self.x() + diff.x(), self.y() + diff.y())
+            self.prevPos = event.globalPos()
 
     def resize_window(self, width, height):
         self.width += width
