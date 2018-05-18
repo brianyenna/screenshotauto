@@ -81,8 +81,7 @@ class ScreenShot(QMainWindow):
             self.move_window(0, -stepSize)
         if key == Qt.Key_S:
             self.move_window(0, stepSize)
-
-        if key == Qt.Key_C:
+        if key == Qt.Key_Space:
             self.take_screenshot()
 
     def mousePressEvent(self, event):
