@@ -1,7 +1,8 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog, QStatusBar, QWidget
 from PyQt5.QtGui import QColor, QPixmap
 from PyQt5.QtCore import Qt, QPoint, QDir
+from imagePreviewer import ImagePreviewer
 
 class ScreenShot(QMainWindow):
     def __init__(self):
@@ -25,10 +26,8 @@ class ScreenShot(QMainWindow):
     def initUI(self):
         self.refreshWindowGeometry()
         self.setWindowOpacity(self.opacity)
-        self.setWindowFlags(Qt.CustomizeWindowHint)
-        self.label = QLabel()
-        self.label.setWindowTitle("Screenshot preview")
-        
+        self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint)
+
         p = self.palette()
         p.setColor(self.backgroundRole(), self.color)
         self.setAutoFillBackground(True)
@@ -39,6 +38,9 @@ class ScreenShot(QMainWindow):
         self.statusBar().setAutoFillBackground(True)
         self.statusBar().setPalette(p)
 
+        self.imagePreviewer = ImagePreviewer(self)
+        self.imagePreviewer.setWindowTitle("Screenshot preview")
+        self.imagePreviewer.hide()
         self.show()
 
     def refreshWindowGeometry(self):
@@ -50,11 +52,9 @@ class ScreenShot(QMainWindow):
         self.statusBar().showMessage(self.statusText.format(self.left,self.top,self.width,self.height))
         self.statusBar().update()
 
-
     def resizeEvent(self, event):
         self.width = event.size().width()
         self.height = event.size().height()
-        QMainWindow.resizeEvent(self, event)
         self.update()
 
     def keyPressEvent(self, event):
@@ -85,6 +85,10 @@ class ScreenShot(QMainWindow):
             self.move_window(0, stepSize)
         if key == Qt.Key_Space:
             self.take_screenshot()
+        if key == Qt.Key_Z:
+            self.save_screenshot()
+        if key == Qt.Key_C:
+            self.clear_screenshot()
 
     def mousePressEvent(self, event):
         self.prevPos = event.globalPos()
@@ -114,16 +118,35 @@ class ScreenShot(QMainWindow):
             self.top = 0
         self.refreshWindowGeometry()
 
+    def clear_screenshot(self):
+        self.imagePreviewer.hide()
+        self.pixmap = None
+
     def take_screenshot(self):
         screen = QApplication.primaryScreen()
         self.hide()
-        pixmap = screen.grabWindow(self.id, self.left, self.top, self.width, self.height)
+        self.pixmap = screen.grabWindow(self.id, self.left, self.top, self.width, self.height)
         self.show()
-        filename = QFileDialog.getSaveFileName(self, "Save As", QDir.currentPath(), "PNG Files (*.png)")
-        if filename:
-            pixmap.save(filename[0], "png")
-            self.label.setPixmap(pixmap)
-            self.label.show()
+        self.imagePreviewer.setPixmap(self.pixmap)
+        self.imagePreviewer.adjustSize()
+        self.imagePreviewer.resize(self.imagePreviewer.sizeHint())
+        self.imagePreviewer.show()
+        self.activateWindow()
+        self.done = True
+    
+    def save_screenshot(self):
+        if self.done:
+            filename = QFileDialog.getSaveFileName(self, "Save As", QDir.currentPath(), "PNG Files (*.png)")
+            if filename:
+                self.pixmap.save(filename[0], "png")
+
+            self.imagePreviewer.hide()
+        else:
+            take_screenshot()
+            save_screenshot()
+        self.done = False
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
