@@ -12,4 +12,5 @@ Use keyboard commands to resize and move the window. Then, snip away!
 | Shift             | Hold this while performing any of the above actions to increase it's step size. |
 | Ctrl              | Same as shift. Holding both together makes the boost larger.                    |
 | Spacebar          | Take a screenshot. Brings up a dialog of where to save it as well.              |
-| Q                 | Quit. Closes the window.                                                        |
+| Z                 | Saves the screenshot you just took.                                             |
+| Q                 | Quit. Closes the window.                                                        |                                                        |
