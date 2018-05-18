@@ -9,8 +9,12 @@ class ImagePreviewer(QLabel):
     def keyPressEvent(self, event):
         key = event.key()
 
-        if (key == Qt.Key_S):
+        if (key == Qt.Key_Z):
             self.mainWindow.save_screenshot()
+        if (key == Qt.Key_C):
+            self.mainWindow.clear_screenshot()
+        if (key == Qt.Key_Q):
+            self.close()
 
 
 

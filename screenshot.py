@@ -83,22 +83,23 @@ class ScreenShot(QMainWindow):
             self.move_window(0, -stepSize)
         if key == Qt.Key_S:
             self.move_window(0, stepSize)
+        
         if key == Qt.Key_Space:
             self.take_screenshot()
         if key == Qt.Key_Z:
             self.save_screenshot()
         if key == Qt.Key_C:
             self.clear_screenshot()
+        if key == Qt.Key_Q:
+            self.close()
 
     def mousePressEvent(self, event):
         self.prevPos = event.globalPos()
 
     def mouseMoveEvent(self, event):        
-        modifier = QApplication.keyboardModifiers()
-        if modifier == Qt.AltModifier:
-            diff = event.globalPos() - self.prevPos
-            self.move_window(diff.x(), diff.y())
-            self.prevPos = event.globalPos()
+        diff = event.globalPos() - self.prevPos
+        self.move_window(diff.x(), diff.y())
+        self.prevPos = event.globalPos()
 
     def resize_window(self, width, height):
         self.width += width
