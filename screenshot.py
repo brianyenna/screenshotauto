@@ -115,8 +115,9 @@ class ScreenShot(QMainWindow):
 
     def take_screenshot(self):
         screen = QApplication.primaryScreen()
+        self.hide()
         pixmap = screen.grabWindow(self.id, self.left, self.top, self.width, self.height)
-        print(self.left)
+        self.show()
         filename = QFileDialog.getSaveFileName(self, "Save As", QDir.currentPath(), "PNG Files (*.png)")
         if filename:
             pixmap.save(filename[0], "png")
