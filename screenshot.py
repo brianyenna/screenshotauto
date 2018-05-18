@@ -1,6 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLCDNumber, QSlider, QGridLayout, QFileDialog
-from PyQt5.QtGui import QPainter, QColor, QPen, QIcon, QPixmap
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QFileDialog
+from PyQt5.QtGui import QColor, QPixmap
 from PyQt5.QtCore import Qt, QPoint, QDir
 
 class ScreenShot(QMainWindow):
@@ -26,6 +26,8 @@ class ScreenShot(QMainWindow):
         self.refreshWindowGeometry()
         self.setWindowOpacity(self.opacity)
         self.setWindowFlags(Qt.CustomizeWindowHint)
+        self.label = QLabel()
+        self.label.setWindowTitle("Screenshot preview")
         
         p = self.palette()
         p.setColor(self.backgroundRole(), self.color)
@@ -120,6 +122,8 @@ class ScreenShot(QMainWindow):
         filename = QFileDialog.getSaveFileName(self, "Save As", QDir.currentPath(), "PNG Files (*.png)")
         if filename:
             pixmap.save(filename[0], "png")
+            self.label.setPixmap(pixmap)
+            self.label.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
