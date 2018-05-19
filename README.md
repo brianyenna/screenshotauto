@@ -1,5 +1,5 @@
 # Better Screenshots
-Say no more to the Windows Snipping Tool! 
+Say no more to the Windows Snipping Tool! Precise and fast screenshot tool.
 
 Use keyboard commands to resize and move the window. Then, snip away!
 
@@ -15,3 +15,10 @@ Use keyboard commands to resize and move the window. Then, snip away!
 | Z                 | Saves the screenshot you just took.                                             |
 | F                 | Sets fullscreen. Press again to revert to normal mode.                          |
 | Q                 | Quit. Closes the window.                                                        |
+
+# Usage
+## Windows
+Run `run.bat`
+
+## Everything else
+Make sure you have python3 installed. Either `python screenshot.py` or `python3 screenshot.py` depending on your configuration.
