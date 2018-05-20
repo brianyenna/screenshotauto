@@ -112,3 +112,6 @@ test*
 
 *.png
 *.sln
+
+#Mac System Files
+.DS_store
