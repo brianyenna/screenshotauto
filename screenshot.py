@@ -15,10 +15,14 @@ class ScreenShot(QMainWindow):
         self.top = 100
         self.minWidth = 10
         self.minHeight = 10
-        self.width = 300
-        self.height = 300
+        self.oldGeometry = [self.top,self.left,self.width,self.height]
+        self.maxWidth = self.availableGeometry.width()
+        self.maxHeight = self.availableGeometry.height()
+        self.width = self.maxWidth
+        self.height = self.maxHeight
         self.opacity = 0.5
-        self.color = QColor(255,3,3)  #Set RGB colours later
+        self.color = QColor(10,10,10)  #Set RGB colours later
+        self.taking_screenshot = False #Boolean. Set to True when screenshot process is occuring
         self.statusText = "X: {} Y: {} | Width: {} Height: {}"
         self.initUI()
 

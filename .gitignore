@@ -112,4 +112,10 @@ test*
 
 *.png
 *.sln
+<<<<<<< HEAD
 .vscode/settings.json
+=======
+
+#Mac System Files
+.DS_store
+>>>>>>> 4a105c9df52d4aa3100899cd73dd4aa0d83b21b4
