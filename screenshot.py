@@ -11,7 +11,6 @@ class ScreenShot(QMainWindow):
         self.stepMultiplier = 10
         self.stepBigMultipler = 10
         self.stepSize = 1 #number of pixels to move the window by
-        geometry = app.desktop().availableGeometry() ##
         self.left = 50
         self.top = 100
         self.minWidth = 10
@@ -164,8 +163,8 @@ class ScreenShot(QMainWindow):
 
             self.imagePreviewer.hide()
         else:
-            take_screenshot()
-            save_screenshot()
+            self.take_screenshot()
+            self.save_screenshot()
         self.done = False
 
 

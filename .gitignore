@@ -112,3 +112,4 @@ test*
 
 *.png
 *.sln
+.vscode/settings.json
