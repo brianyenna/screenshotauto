@@ -11,12 +11,15 @@ class ScreenShot(QMainWindow):
         self.stepMultiplier = 10
         self.stepBigMultipler = 10
         self.stepSize = 1 #number of pixels to move the window by
-        self.left = 0
-        self.top = 0
+        self.left = 50
+        self.top = 100
         self.minWidth = 10
         self.minHeight = 10
-        self.width = 100
-        self.height = 100
+        self.oldGeometry = [self.top,self.left,self.width,self.height]
+        self.maxWidth = self.availableGeometry.width()
+        self.maxHeight = self.availableGeometry.height()
+        self.width = self.maxWidth
+        self.height = self.maxHeight
         self.opacity = 0.5
         self.color = QColor(10,10,10)  #Set RGB colours later
         self.taking_screenshot = False #Boolean. Set to True when screenshot process is occuring
@@ -164,8 +167,8 @@ class ScreenShot(QMainWindow):
 
             self.imagePreviewer.hide()
         else:
-            take_screenshot()
-            save_screenshot()
+            self.take_screenshot()
+            self.save_screenshot()
         self.done = False
 
 

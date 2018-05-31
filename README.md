@@ -22,3 +22,6 @@ Run `run.bat`
 
 ## Everything else
 Make sure you have python3 installed. Either `python screenshot.py` or `python3 screenshot.py` depending on your configuration.
+
+## Issues
+Mac has something wrong with the window resize using the mouse. Recommend you stop using Mac.
