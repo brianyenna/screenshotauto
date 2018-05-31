@@ -11,16 +11,12 @@ class ScreenShot(QMainWindow):
         self.stepMultiplier = 10
         self.stepBigMultipler = 10
         self.stepSize = 1 #number of pixels to move the window by
-        self.availableGeometry = app.desktop().availableGeometry()
-        self.screenGeometry = QDesktopWidget().screenGeometry(-1)
         self.left = 0
         self.top = 0
         self.minWidth = 10
         self.minHeight = 10
-        self.maxWidth = self.availableGeometry.width()
-        self.maxHeight = self.availableGeometry.height()
-        self.width = self.maxWidth
-        self.height = self.maxHeight
+        self.width = 100
+        self.height = 100
         self.opacity = 0.5
         self.color = QColor(10,10,10)  #Set RGB colours later
         self.taking_screenshot = False #Boolean. Set to True when screenshot process is occuring
@@ -30,7 +26,7 @@ class ScreenShot(QMainWindow):
     def initUI(self):
         self.refreshWindowGeometry()
         self.setWindowOpacity(self.opacity)
-        self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint)
+        # self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint)
 
         p = self.palette()
         p.setColor(self.backgroundRole(), self.color)

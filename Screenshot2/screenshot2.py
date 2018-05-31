@@ -183,6 +183,7 @@ class ScreenShot(QMainWindow):
 
     def take_screenshot(self):
         screen = app.primaryScreen()
+        self.hide()
         #If not screenshot window is set, the program defaults to taking a screenshot of the entire window
         if any(i == None for i in [self.begin.x(), self.begin.y(), self.screenshot_height, self.screenshot_width]):
             self.pixmap = screen.grabWindow(MainWindow.id, 0, 0, self.maxWidth, self.maxHeight)
