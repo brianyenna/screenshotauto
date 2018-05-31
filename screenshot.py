@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog, QStatusBar, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog, QStatusBar, QWidget, QDesktopWidget
 from PyQt5.QtGui import QColor, QPixmap, QScreen
 from PyQt5.QtCore import Qt, QPoint, QDir
 from imagePreviewer import ImagePreviewer
@@ -16,6 +16,8 @@ class ScreenShot(QMainWindow):
         self.minWidth = 10
         self.minHeight = 10
         self.oldGeometry = [self.top,self.left,self.width,self.height]
+        self.availableGeometry = app.desktop().availableGeometry()
+        self.screenGeometry = QDesktopWidget().screenGeometry(-1)
         self.maxWidth = self.availableGeometry.width()
         self.maxHeight = self.availableGeometry.height()
         self.width = self.maxWidth
